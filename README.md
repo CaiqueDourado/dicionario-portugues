@@ -137,6 +137,7 @@ flowchart LR
 
 ## Related
 
+- [portuguese-entity-gazetteer](https://github.com/CaiqueDourado/portuguese-entity-gazetteer): 307 thousand entities (places, people, works, products) with their types, the proper-name side.
 - [search-pattern-miner](https://github.com/CaiqueDourado/search-pattern-miner): the same Lucene stemmer and stopwords turn searches into patterns.
 - [palavras-da-biblia](https://github.com/CaiqueDourado/palavras-da-biblia): the Bible word counts behind part of `ocorrencias`.
 - [google-keywords-dataset](https://github.com/CaiqueDourado/google-keywords-dataset): the Google searches behind part of `ocorrencias`.

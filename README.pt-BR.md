@@ -137,6 +137,7 @@ flowchart LR
 
 ## Relacionados
 
+- [portuguese-entity-gazetteer](https://github.com/CaiqueDourado/portuguese-entity-gazetteer): 307 mil entidades (lugares, pessoas, obras, produtos) com seus tipos, o lado dos nomes próprios.
 - [search-pattern-miner](https://github.com/CaiqueDourado/search-pattern-miner): o mesmo stemmer do Lucene e as mesmas stopwords transformam buscas em padrões.
 - [palavras-da-biblia](https://github.com/CaiqueDourado/palavras-da-biblia): as contagens da Bíblia por trás de parte de `ocorrencias`.
 - [google-keywords-dataset](https://github.com/CaiqueDourado/google-keywords-dataset): as buscas do Google por trás de parte de `ocorrencias`.
