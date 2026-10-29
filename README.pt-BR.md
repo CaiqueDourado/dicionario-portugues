@@ -137,6 +137,7 @@ flowchart LR
 
 ## Relacionados
 
+- [search-pattern-miner](https://github.com/CaiqueDourado/search-pattern-miner): o mesmo stemmer do Lucene e as mesmas stopwords transformam buscas em padrões.
 - [palavras-da-biblia](https://github.com/CaiqueDourado/palavras-da-biblia): as contagens da Bíblia por trás de parte de `ocorrencias`.
 - [google-keywords-dataset](https://github.com/CaiqueDourado/google-keywords-dataset): as buscas do Google por trás de parte de `ocorrencias`.
 - [brazilian-names-surnames](https://github.com/CaiqueDourado/brazilian-names-surnames): nomes com as mesmas chaves fonéticas.

@@ -137,6 +137,7 @@ flowchart LR
 
 ## Related
 
+- [search-pattern-miner](https://github.com/CaiqueDourado/search-pattern-miner): the same Lucene stemmer and stopwords turn searches into patterns.
 - [palavras-da-biblia](https://github.com/CaiqueDourado/palavras-da-biblia): the Bible word counts behind part of `ocorrencias`.
 - [google-keywords-dataset](https://github.com/CaiqueDourado/google-keywords-dataset): the Google searches behind part of `ocorrencias`.
 - [brazilian-names-surnames](https://github.com/CaiqueDourado/brazilian-names-surnames): names with the same phonetic keys.
