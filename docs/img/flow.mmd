@@ -1,0 +1,12 @@
+flowchart LR
+  L["several word lists<br/>+ words of the author's corpora"] --> P[("dicionario.palavras<br/>272,663 words")]
+  C["Bible, quotes, Google searches"] -->|ocorrencias| P
+  P --> R["rule-based fields (C#)<br/>stem, Metaphone, fingerprint,<br/>n-grams, vowels, consonants"]
+  P --> RI[("rhymes, top 10<br/>same-key pairs")]
+  P --> D["text-davinci-002, temp 0<br/>~9.1 k most frequent words"]
+  P --> G["gpt-3.5-turbo, temp 0.9<br/>~188 k words"]
+  R --> B["build_dicionario.py (DuckDB)<br/>clean, dedupe models, recompute"]
+  RI --> B
+  D --> B
+  G --> B
+  B --> O["Parquet on Kaggle<br/>CSV sample on GitHub"]

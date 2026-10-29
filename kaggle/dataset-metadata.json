@@ -1,0 +1,767 @@
+{
+ "title": "Dicionário do Português: 272 mil palavras",
+ "subtitle": "Portuguese words with phonetic keys, rhymes and 2.9M AI-generated texts",
+ "id": "caiquedourado/dicionario-portugues",
+ "licenses": [
+  {
+   "name": "Attribution 4.0 International (CC BY 4.0)"
+  }
+ ],
+ "keywords": [
+  "languages",
+  "nlp",
+  "text",
+  "linguistics"
+ ],
+ "description": "**Dicionário do Português**: a Brazilian Portuguese word list of **272,626 words**, each with **rule-based fields** (word without accents, stem, reversed word, vowels, consonants, last characters, number of letters, Metaphone and fingerprint keys) and how often it appears in the author's corpora, plus **2,916,780 AI-generated texts** for 187,949 of them: meaning, definitions, synonyms, antonyms, part of speech, syllables, stressed syllable, plural, feminine, gerund, participle… Also **2,287,766 rhymes** and **11,868,060 pairs of words that share a key**.\n\n> **The AI texts were not reviewed.** They were generated in 2022–2023 by `text-davinci-002` and `gpt-3.5-turbo` and contain mistakes (*\"Fazer significa fazer algo\"*, *Curso* as a proper noun, *Brasils* as a plural). Use them as a starting point, as training or evaluation data for language tools, or to study what those models got wrong, not as an authority on Portuguese.\n\n![Dicionário do Português](https://raw.githubusercontent.com/CaiqueDourado/dicionario-portugues/main/docs/img/cover.png)\n\n## How a word is structured\n\n![One word in JSON](https://raw.githubusercontent.com/CaiqueDourado/dicionario-portugues/main/docs/img/palavra-json.png)\n\n*Fazer*, the most frequent word, with 16 of its 36 fields and the texts cut. The rule-based fields are reliable; the AI texts show the problem in this very word: the \"feminine\" of a verb.\n\n## Files\n\n- `palavras-*.parquet` (272,626 rows): one word per row: rule-based fields, `ocorrencias`, and the 19 AI text fields (the `gpt-3.5-turbo` text when there is one, otherwise the `text-davinci-002` text).\n- `textos_ia-*.parquet` (2,916,780 rows): every AI text with its model: `id_palavra`, `campo`, `modelo`, `texto`.\n- `rimas-*.parquet` (2,287,766 rows): `palavra`, `rima`, up to 10 rhymes per word (same last characters).\n- `mesmo_fingerprint-*.parquet` (11,868,060 rows): `palavra`, `outra`, words with the same normalized key, mostly inflections.\n- `stats.json`: totals and every cleaning count.\n\n## The site this comes from\n\n![Tudo sobre as Palavras](https://raw.githubusercontent.com/CaiqueDourado/dicionario-portugues/main/docs/img/tudosobreaspalavras.com_screenshot.png)\n\n**Tudo sobre as Palavras** (2023) had about 187 thousand pages, one per word with AI texts, with these fields in the left menu. Static HTML generated in C# from SQL Server, hosted on Google Cloud Storage. Archived page: [Arrogado](https://web.archive.org/web/20250923215535/https://tudosobreaspalavras.com/tudo-sobre-a-palavra-arrogado).\n\n## What the data shows\n\n![AI texts per field](https://raw.githubusercontent.com/CaiqueDourado/dicionario-portugues/main/docs/img/campos.png)\n\n`text-davinci-002` (temperature 0) wrote the texts of the ~9,100 most frequent words; `gpt-3.5-turbo` (temperature 0.9) wrote most of the rest. In the source table the davinci columns held copies of the ChatGPT text in 2,754,358 cells; those copies were removed, so each text appears once, with its real model. Typical mistakes are kept as written: definitions that repeat the word, \"proper noun\" for common nouns, letters split one by one (*C-U-R-S-O*), English answers (*Noun*), plurals of invariable words, \"feminine\" of verbs.\n\n## How it was made\n\n![Flow](https://raw.githubusercontent.com/CaiqueDourado/dicionario-portugues/main/docs/img/flow.png)\n\n- **Word list**: compiled from several word lists and from the author's corpora. `ocorrencias` counts occurrences in the Bible, a quotes collection and Google searches with volume (109,230 words appear at least once).\n- **Rule-based fields**: computed by the author's C# code; `palavra_sem_acento`, `ao_contrario` and `numero_letras` were recomputed (the old code turned *ss* into *B* in 28,046 words).\n- **AI texts**: one prompt per field per word. The build removed the davinci copies, trimmed spaces and line breaks, cut 5,883 prompt echoes and 45,686 broken phonetic transcriptions, and dropped 1,280 texts where the model talks about itself and 6,330 with characters lost mid-word. 37 words marked as ignored are left out.\n\n## Limits\n\n- The AI texts were not reviewed; some still carry prompt echoes mid-text.\n- The list mixes Brazilian Portuguese with inflections, names, loanwords and a few typos.\n- `ocorrencias` reflects the author's corpora, not Portuguese in general.\n- Rhymes are by spelling, not sound; same-key pairs include unrelated words.\n\n## Code, sample and related data\n\nGitHub: [CaiqueDourado/dicionario-portugues](https://github.com/CaiqueDourado/dicionario-portugues) (build scripts, CSV sample, notebook). Related: [Google Keywords](https://www.kaggle.com/datasets/caiquedourado/google-keywords-dataset), [palavras-da-biblia](https://github.com/CaiqueDourado/palavras-da-biblia), [brazilian-names-surnames](https://github.com/CaiqueDourado/brazilian-names-surnames), [DedupKit](https://github.com/CaiqueDourado/DedupKit).\n\nLicense: CC BY 4.0 (data), MIT (code). Author: Caique Dourado.\n",
+ "isPrivate": false,
+ "resources": [
+  {
+   "path": "mesmo_fingerprint-0000.parquet",
+   "description": "Pairs of words with the same normalized key, mostly inflections. Part 1.",
+   "schema": {
+    "fields": [
+     {
+      "name": "palavra",
+      "type": "string",
+      "description": "Word"
+     },
+     {
+      "name": "outra",
+      "type": "string",
+      "description": "Another word with the same key"
+     }
+    ]
+   }
+  },
+  {
+   "path": "palavras-0000.parquet",
+   "description": "One word per row: rule-based fields, occurrences and the 19 AI text fields (not reviewed). Part 1.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id",
+      "type": "integer",
+      "description": "Word id (textos_ia.id_palavra)"
+     },
+     {
+      "name": "palavra",
+      "type": "string",
+      "description": "The word, capitalized"
+     },
+     {
+      "name": "palavra_sem_acento",
+      "type": "string",
+      "description": "The word without accents"
+     },
+     {
+      "name": "numero_letras",
+      "type": "integer",
+      "description": "Number of letters"
+     },
+     {
+      "name": "ocorrencias",
+      "type": "integer",
+      "description": "Occurrences in the Bible, a quotes collection and Google searches"
+     },
+     {
+      "name": "radical",
+      "type": "string",
+      "description": "Stem (simple stemmer)"
+     },
+     {
+      "name": "ao_contrario",
+      "type": "string",
+      "description": "The word reversed, lower case"
+     },
+     {
+      "name": "vogais",
+      "type": "string",
+      "description": "Vowels, hyphen separated"
+     },
+     {
+      "name": "consoantes",
+      "type": "string",
+      "description": "Consonants, hyphen separated"
+     },
+     {
+      "name": "ultimos_caracteres",
+      "type": "string",
+      "description": "Last characters, the rhyme key"
+     },
+     {
+      "name": "metaphone",
+      "type": "string",
+      "description": "Metaphone key (Portuguese)"
+     },
+     {
+      "name": "fingerprint",
+      "type": "string",
+      "description": "Fingerprint key"
+     },
+     {
+      "name": "tokenizada",
+      "type": "string",
+      "description": "Stemmed token"
+     },
+     {
+      "name": "ngram",
+      "type": "string",
+      "description": "N-gram key"
+     },
+     {
+      "name": "soft",
+      "type": "string",
+      "description": "Soft normalized key"
+     },
+     {
+      "name": "tem_textos_ia",
+      "type": "boolean",
+      "description": "Word has at least one AI text"
+     },
+     {
+      "name": "significado",
+      "type": "string",
+      "description": "Meaning, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "definicoes",
+      "type": "string",
+      "description": "Definitions, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "exemplos_de_uso",
+      "type": "string",
+      "description": "Usage examples, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "sinonimos",
+      "type": "string",
+      "description": "Synonyms, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "antonimos",
+      "type": "string",
+      "description": "Antonyms, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "ortografia_pronuncia",
+      "type": "string",
+      "description": "Spelling and pronunciation, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "historia_da_palavra",
+      "type": "string",
+      "description": "History of the word, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "significado_idiomatico_regional",
+      "type": "string",
+      "description": "Idiomatic and regional meaning, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "significado_em_contexto",
+      "type": "string",
+      "description": "Meaning in context, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "classe_gramatical",
+      "type": "string",
+      "description": "Part of speech, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "separacao_silabica",
+      "type": "string",
+      "description": "Syllable split, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "silaba_tonica",
+      "type": "string",
+      "description": "Stressed syllable, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "singular",
+      "type": "string",
+      "description": "Singular, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "plural",
+      "type": "string",
+      "description": "Plural, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "feminino",
+      "type": "string",
+      "description": "Feminine, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "masculino",
+      "type": "string",
+      "description": "Masculine, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "infinitivo",
+      "type": "string",
+      "description": "Infinitive, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "gerundio",
+      "type": "string",
+      "description": "Gerund, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "participio",
+      "type": "string",
+      "description": "Past participle, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "palavras-0001.parquet",
+   "description": "One word per row: rule-based fields, occurrences and the 19 AI text fields (not reviewed). Part 2.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id",
+      "type": "integer",
+      "description": "Word id (textos_ia.id_palavra)"
+     },
+     {
+      "name": "palavra",
+      "type": "string",
+      "description": "The word, capitalized"
+     },
+     {
+      "name": "palavra_sem_acento",
+      "type": "string",
+      "description": "The word without accents"
+     },
+     {
+      "name": "numero_letras",
+      "type": "integer",
+      "description": "Number of letters"
+     },
+     {
+      "name": "ocorrencias",
+      "type": "integer",
+      "description": "Occurrences in the Bible, a quotes collection and Google searches"
+     },
+     {
+      "name": "radical",
+      "type": "string",
+      "description": "Stem (simple stemmer)"
+     },
+     {
+      "name": "ao_contrario",
+      "type": "string",
+      "description": "The word reversed, lower case"
+     },
+     {
+      "name": "vogais",
+      "type": "string",
+      "description": "Vowels, hyphen separated"
+     },
+     {
+      "name": "consoantes",
+      "type": "string",
+      "description": "Consonants, hyphen separated"
+     },
+     {
+      "name": "ultimos_caracteres",
+      "type": "string",
+      "description": "Last characters, the rhyme key"
+     },
+     {
+      "name": "metaphone",
+      "type": "string",
+      "description": "Metaphone key (Portuguese)"
+     },
+     {
+      "name": "fingerprint",
+      "type": "string",
+      "description": "Fingerprint key"
+     },
+     {
+      "name": "tokenizada",
+      "type": "string",
+      "description": "Stemmed token"
+     },
+     {
+      "name": "ngram",
+      "type": "string",
+      "description": "N-gram key"
+     },
+     {
+      "name": "soft",
+      "type": "string",
+      "description": "Soft normalized key"
+     },
+     {
+      "name": "tem_textos_ia",
+      "type": "boolean",
+      "description": "Word has at least one AI text"
+     },
+     {
+      "name": "significado",
+      "type": "string",
+      "description": "Meaning, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "definicoes",
+      "type": "string",
+      "description": "Definitions, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "exemplos_de_uso",
+      "type": "string",
+      "description": "Usage examples, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "sinonimos",
+      "type": "string",
+      "description": "Synonyms, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "antonimos",
+      "type": "string",
+      "description": "Antonyms, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "ortografia_pronuncia",
+      "type": "string",
+      "description": "Spelling and pronunciation, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "historia_da_palavra",
+      "type": "string",
+      "description": "History of the word, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "significado_idiomatico_regional",
+      "type": "string",
+      "description": "Idiomatic and regional meaning, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "significado_em_contexto",
+      "type": "string",
+      "description": "Meaning in context, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "classe_gramatical",
+      "type": "string",
+      "description": "Part of speech, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "separacao_silabica",
+      "type": "string",
+      "description": "Syllable split, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "silaba_tonica",
+      "type": "string",
+      "description": "Stressed syllable, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "singular",
+      "type": "string",
+      "description": "Singular, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "plural",
+      "type": "string",
+      "description": "Plural, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "feminino",
+      "type": "string",
+      "description": "Feminine, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "masculino",
+      "type": "string",
+      "description": "Masculine, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "infinitivo",
+      "type": "string",
+      "description": "Infinitive, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "gerundio",
+      "type": "string",
+      "description": "Gerund, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "participio",
+      "type": "string",
+      "description": "Past participle, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "palavras-0002.parquet",
+   "description": "One word per row: rule-based fields, occurrences and the 19 AI text fields (not reviewed). Part 3.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id",
+      "type": "integer",
+      "description": "Word id (textos_ia.id_palavra)"
+     },
+     {
+      "name": "palavra",
+      "type": "string",
+      "description": "The word, capitalized"
+     },
+     {
+      "name": "palavra_sem_acento",
+      "type": "string",
+      "description": "The word without accents"
+     },
+     {
+      "name": "numero_letras",
+      "type": "integer",
+      "description": "Number of letters"
+     },
+     {
+      "name": "ocorrencias",
+      "type": "integer",
+      "description": "Occurrences in the Bible, a quotes collection and Google searches"
+     },
+     {
+      "name": "radical",
+      "type": "string",
+      "description": "Stem (simple stemmer)"
+     },
+     {
+      "name": "ao_contrario",
+      "type": "string",
+      "description": "The word reversed, lower case"
+     },
+     {
+      "name": "vogais",
+      "type": "string",
+      "description": "Vowels, hyphen separated"
+     },
+     {
+      "name": "consoantes",
+      "type": "string",
+      "description": "Consonants, hyphen separated"
+     },
+     {
+      "name": "ultimos_caracteres",
+      "type": "string",
+      "description": "Last characters, the rhyme key"
+     },
+     {
+      "name": "metaphone",
+      "type": "string",
+      "description": "Metaphone key (Portuguese)"
+     },
+     {
+      "name": "fingerprint",
+      "type": "string",
+      "description": "Fingerprint key"
+     },
+     {
+      "name": "tokenizada",
+      "type": "string",
+      "description": "Stemmed token"
+     },
+     {
+      "name": "ngram",
+      "type": "string",
+      "description": "N-gram key"
+     },
+     {
+      "name": "soft",
+      "type": "string",
+      "description": "Soft normalized key"
+     },
+     {
+      "name": "tem_textos_ia",
+      "type": "boolean",
+      "description": "Word has at least one AI text"
+     },
+     {
+      "name": "significado",
+      "type": "string",
+      "description": "Meaning, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "definicoes",
+      "type": "string",
+      "description": "Definitions, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "exemplos_de_uso",
+      "type": "string",
+      "description": "Usage examples, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "sinonimos",
+      "type": "string",
+      "description": "Synonyms, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "antonimos",
+      "type": "string",
+      "description": "Antonyms, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "ortografia_pronuncia",
+      "type": "string",
+      "description": "Spelling and pronunciation, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "historia_da_palavra",
+      "type": "string",
+      "description": "History of the word, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "significado_idiomatico_regional",
+      "type": "string",
+      "description": "Idiomatic and regional meaning, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "significado_em_contexto",
+      "type": "string",
+      "description": "Meaning in context, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "classe_gramatical",
+      "type": "string",
+      "description": "Part of speech, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "separacao_silabica",
+      "type": "string",
+      "description": "Syllable split, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "silaba_tonica",
+      "type": "string",
+      "description": "Stressed syllable, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "singular",
+      "type": "string",
+      "description": "Singular, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "plural",
+      "type": "string",
+      "description": "Plural, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "feminino",
+      "type": "string",
+      "description": "Feminine, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "masculino",
+      "type": "string",
+      "description": "Masculine, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "infinitivo",
+      "type": "string",
+      "description": "Infinitive, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "gerundio",
+      "type": "string",
+      "description": "Gerund, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     },
+     {
+      "name": "participio",
+      "type": "string",
+      "description": "Past participle, AI-generated (gpt-3.5-turbo when there is one, else text-davinci-002), not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "rimas-0000.parquet",
+   "description": "Up to 10 rhymes per word (same last characters). Part 1.",
+   "schema": {
+    "fields": [
+     {
+      "name": "palavra",
+      "type": "string",
+      "description": "Word"
+     },
+     {
+      "name": "rima",
+      "type": "string",
+      "description": "A word that rhymes with it"
+     }
+    ]
+   }
+  },
+  {
+   "path": "rimas-0001.parquet",
+   "description": "Up to 10 rhymes per word (same last characters). Part 2.",
+   "schema": {
+    "fields": [
+     {
+      "name": "palavra",
+      "type": "string",
+      "description": "Word"
+     },
+     {
+      "name": "rima",
+      "type": "string",
+      "description": "A word that rhymes with it"
+     }
+    ]
+   }
+  },
+  {
+   "path": "textos_ia-0000.parquet",
+   "description": "Every AI text with its model, long format. Part 1.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id_palavra",
+      "type": "integer",
+      "description": "Word id (palavras.id)"
+     },
+     {
+      "name": "campo",
+      "type": "string",
+      "description": "Field: significado, sinonimos, plural…"
+     },
+     {
+      "name": "modelo",
+      "type": "string",
+      "description": "text-davinci-002 or gpt-3.5-turbo"
+     },
+     {
+      "name": "texto",
+      "type": "string",
+      "description": "The text, cleaned, not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "textos_ia-0001.parquet",
+   "description": "Every AI text with its model, long format. Part 2.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id_palavra",
+      "type": "integer",
+      "description": "Word id (palavras.id)"
+     },
+     {
+      "name": "campo",
+      "type": "string",
+      "description": "Field: significado, sinonimos, plural…"
+     },
+     {
+      "name": "modelo",
+      "type": "string",
+      "description": "text-davinci-002 or gpt-3.5-turbo"
+     },
+     {
+      "name": "texto",
+      "type": "string",
+      "description": "The text, cleaned, not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "textos_ia-0002.parquet",
+   "description": "Every AI text with its model, long format. Part 3.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id_palavra",
+      "type": "integer",
+      "description": "Word id (palavras.id)"
+     },
+     {
+      "name": "campo",
+      "type": "string",
+      "description": "Field: significado, sinonimos, plural…"
+     },
+     {
+      "name": "modelo",
+      "type": "string",
+      "description": "text-davinci-002 or gpt-3.5-turbo"
+     },
+     {
+      "name": "texto",
+      "type": "string",
+      "description": "The text, cleaned, not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "textos_ia-0003.parquet",
+   "description": "Every AI text with its model, long format. Part 4.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id_palavra",
+      "type": "integer",
+      "description": "Word id (palavras.id)"
+     },
+     {
+      "name": "campo",
+      "type": "string",
+      "description": "Field: significado, sinonimos, plural…"
+     },
+     {
+      "name": "modelo",
+      "type": "string",
+      "description": "text-davinci-002 or gpt-3.5-turbo"
+     },
+     {
+      "name": "texto",
+      "type": "string",
+      "description": "The text, cleaned, not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "textos_ia-0004.parquet",
+   "description": "Every AI text with its model, long format. Part 5.",
+   "schema": {
+    "fields": [
+     {
+      "name": "id_palavra",
+      "type": "integer",
+      "description": "Word id (palavras.id)"
+     },
+     {
+      "name": "campo",
+      "type": "string",
+      "description": "Field: significado, sinonimos, plural…"
+     },
+     {
+      "name": "modelo",
+      "type": "string",
+      "description": "text-davinci-002 or gpt-3.5-turbo"
+     },
+     {
+      "name": "texto",
+      "type": "string",
+      "description": "The text, cleaned, not reviewed"
+     }
+    ]
+   }
+  },
+  {
+   "path": "stats.json",
+   "description": "Totals and cleaning counts used in the README."
+  }
+ ]
+}

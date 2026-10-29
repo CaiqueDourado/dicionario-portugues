@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+type: dataset
+title: "Dicionário do Português: 272 thousand Portuguese words with phonetic keys, rhymes and AI-generated texts"
+authors:
+  - family-names: Dourado
+    given-names: Caique
+version: 1.0.0
+date-released: 2026-10-30
+license: CC-BY-4.0
+repository-code: "https://github.com/CaiqueDourado/dicionario-portugues"
+url: "https://www.kaggle.com/datasets/caiquedourado/dicionario-portugues"
+keywords:
+  - portuguese
+  - dictionary
+  - brazil
+  - nlp
+  - rhymes
+  - phonetic-keys
+  - llm-generated

@@ -1,0 +1,99 @@
+{
+  "palavras_brutas": 272663,
+  "palavras": 272626,
+  "textos_brutos": 5860109,
+  "davinci_copia_do_chatgpt": 2754358,
+  "eco_do_prompt_removido": 5883,
+  "ipa_quebrado_removido": 45686,
+  "descartado_ia_fala_de_si": 1280,
+  "descartado_caractere_perdido": 6330,
+  "textos_publicados": 3098141,
+  "textos_por_campo": {
+    "antonimos": {
+      "davinci": 9138,
+      "chatgpt": 169902
+    },
+    "classe_gramatical": {
+      "davinci": 9138,
+      "chatgpt": 177295
+    },
+    "definicoes": {
+      "davinci": 9135,
+      "chatgpt": 144704
+    },
+    "exemplos_de_uso": {
+      "davinci": 9135,
+      "chatgpt": 121926
+    },
+    "feminino": {
+      "davinci": 9138,
+      "chatgpt": 164688
+    },
+    "gerundio": {
+      "davinci": 9137,
+      "chatgpt": 177540
+    },
+    "historia_da_palavra": {
+      "davinci": 9056,
+      "chatgpt": 12894
+    },
+    "infinitivo": {
+      "davinci": 9138,
+      "chatgpt": 169494
+    },
+    "masculino": {
+      "davinci": 9138,
+      "chatgpt": 174104
+    },
+    "ortografia_pronuncia": {
+      "davinci": 8911,
+      "chatgpt": 172091
+    },
+    "participio": {
+      "davinci": 9134,
+      "chatgpt": 177260
+    },
+    "plural": {
+      "davinci": 9138,
+      "chatgpt": 168631
+    },
+    "separacao_silabica": {
+      "davinci": 9135,
+      "chatgpt": 175885
+    },
+    "significado": {
+      "davinci": 9133,
+      "chatgpt": 178411
+    },
+    "significado_em_contexto": {
+      "davinci": 9133,
+      "chatgpt": 177
+    },
+    "significado_idiomatico_regional": {
+      "davinci": 9136,
+      "chatgpt": 29213
+    },
+    "silaba_tonica": {
+      "davinci": 9138,
+      "chatgpt": 178601
+    },
+    "singular": {
+      "davinci": 9138,
+      "chatgpt": 174727
+    },
+    "sinonimos": {
+      "davinci": 9136,
+      "chatgpt": 175952
+    }
+  },
+  "arquivos_textos_ia": 5,
+  "arquivos_palavras": 3,
+  "palavras_com_textos_ia": 187949,
+  "palavras_ocorrencias_gt0": 109230,
+  "palavra_sem_acento_mudou": 28046,
+  "arquivos_rimas": 2,
+  "rimas": 2287766,
+  "arquivos_mesmo_fingerprint": 1,
+  "mesmo_fingerprint": 11868060,
+  "textos_publicados_dicionario": 2916780
+}
