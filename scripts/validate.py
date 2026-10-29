@@ -26,7 +26,7 @@ def check(ok: bool, msg: str) -> None:
 
 
 def one(sql: str):
-    return duckdb.sql(sql).fetchone()[0]
+    return duckdb.sql(sql).fetchall()[0][0]
 
 
 pw, tx = (S / "palavras_sample.csv").as_posix(), (S / "textos_ia_sample.csv").as_posix()
