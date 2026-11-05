@@ -10,18 +10,14 @@
 
 ![Dicionário do Português](docs/img/cover.pt-BR.png)
 
-Uma lista de **272.626 palavras** do português do Brasil, cada uma com **campos calculados por regra** (palavra sem
-acento, radical, palavra ao contrário, vogais, consoantes, últimos caracteres, número de letras, chaves Metaphone e
-fingerprint) e quantas vezes aparece nos corpora do autor, mais **2.916.780 textos gerados por IA** para 187.949
-delas: significado, definições, sinônimos, antônimos, classe gramatical, separação silábica, sílaba tônica, plural,
-feminino, gerúndio, particípio… Traz também **2.287.766 rimas** e **11.868.060 pares de palavras com a mesma chave**.
+Uma lista de palavras do português do Brasil com **272.626 palavras**. Cada uma tem **campos calculados por regra** (palavra sem acento, radical, palavra ao contrário, vogais, consoantes, últimas letras, número de letras, chaves Metaphone e fingerprint) e quantas vezes aparece nos meus corpora. Em cima disso, **2.916.780 textos escritos por IA** para 187.949 delas: significado, definições, sinônimos, antônimos, classe gramatical, sílabas, sílaba tônica, plural, feminino, gerúndio, particípio… Mais **2.287.766 rimas** e **11.868.060 pares de palavras que têm a mesma chave**.
 
 > **Os textos de IA não foram revisados.** Foram gerados em 2022–2023 pelos modelos `text-davinci-002` e
 > `gpt-3.5-turbo` e têm erros: *"Fazer significa fazer algo"*, *Curso* como nome próprio, *Brasils* como plural.
 > Use como ponto de partida, como dado de treino ou de avaliação para ferramentas de linguagem, ou para estudar o que
 > esses modelos erravam, não como referência do português.
 
-São os dados por trás do **Tudo sobre as Palavras**, um site de dicionário do autor, com uma página por palavra.
+São os dados por trás do **Tudo sobre as Palavras**, um site de dicionário que eu mantive, com uma página por palavra.
 
 ## O que tem
 
@@ -94,7 +90,7 @@ O [notebook](notebooks/estudo.ipynb) tem mais consultas.
 
 ```mermaid
 flowchart LR
-  L["várias listas de palavras<br/>+ palavras dos corpora do autor"] --> P[("dicionario.palavras<br/>272.663 palavras")]
+  L["várias listas de palavras<br/>+ palavras dos meus corpora"] --> P[("dicionario.palavras<br/>272.663 palavras")]
   C["Bíblia, frases, buscas do Google"] -->|ocorrencias| P
   P --> R["campos por regra (C#)<br/>radical, Metaphone, fingerprint,<br/>n-gramas, vogais, consoantes"]
   P --> RI[("rimas, top 10<br/>pares com a mesma chave")]
@@ -107,10 +103,10 @@ flowchart LR
   B --> O["Parquet no Kaggle<br/>amostra CSV no GitHub"]
 ```
 
-- **A lista de palavras** foi compilada de várias listas de palavras e das palavras dos corpora do próprio autor.
+- **A lista de palavras** foi compilada de várias listas de palavras e das palavras dos meus próprios corpora.
   Cada palavra está com inicial maiúscula (*Fazer*). `ocorrencias` conta quantas vezes a palavra aparece na Bíblia,
   numa coleção de frases e em buscas do Google com volume; 109.230 palavras aparecem pelo menos uma vez.
-- **Campos por regra** foram calculados pelo código C# do autor. `palavra_sem_acento`, `ao_contrario` e
+- **Campos por regra** foram calculados pelo meu código C#. `palavra_sem_acento`, `ao_contrario` e
   `numero_letras` foram recalculados no build: o código antigo trocava *ss* por *B* em 28.046 palavras
   (*ProclamaBes*). Os demais saem como foram calculados; palavras com hífen ganharam chaves estranhas (*Online* →
   fingerprint `line`).
@@ -132,7 +128,7 @@ flowchart LR
 - Os textos de IA não foram revisados (veja o aviso acima) e algumas células ainda têm ecos do prompt no meio do texto
   ("com exemplos.").
 - A lista mistura português do Brasil com flexões, nomes, estrangeirismos e alguns erros de digitação.
-- `ocorrencias` reflete os corpora do autor, não o português em geral.
+- `ocorrencias` reflete os meus corpora, não o português em geral.
 - As rimas são pela grafia, não pelo som; os pares com a mesma chave incluem palavras sem relação (*Severo* → *Sovara*).
 
 ## Relacionados

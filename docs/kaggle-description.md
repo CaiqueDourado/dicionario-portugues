@@ -1,4 +1,4 @@
-**Dicionário do Português**: a Brazilian Portuguese word list of **272,626 words**, each with **rule-based fields** (word without accents, stem, reversed word, vowels, consonants, last characters, number of letters, Metaphone and fingerprint keys) and how often it appears in the author's corpora, plus **2,916,780 AI-generated texts** for 187,949 of them: meaning, definitions, synonyms, antonyms, part of speech, syllables, stressed syllable, plural, feminine, gerund, participle… Also **2,287,766 rhymes** and **11,868,060 pairs of words that share a key**.
+**Dicionário do Português**: a Brazilian Portuguese word list of **272,626 words**, each with **rule-based fields** (word without accents, stem, reversed word, vowels, consonants, last characters, number of letters, Metaphone and fingerprint keys) and how often it shows up in my corpora, plus **2,916,780 AI-generated texts** for 187,949 of them: meaning, definitions, synonyms, antonyms, part of speech, syllables, stressed syllable, plural, feminine, gerund, participle… Also **2,287,766 rhymes** and **11,868,060 pairs of words that share a key**.
 
 > **The AI texts were not reviewed.** They were generated in 2022–2023 by `text-davinci-002` and `gpt-3.5-turbo` and contain mistakes (*"Fazer significa fazer algo"*, *Curso* as a proper noun, *Brasils* as a plural). Use them as a starting point, as training or evaluation data for language tools, or to study what those models got wrong, not as an authority on Portuguese.
 
@@ -34,15 +34,15 @@
 
 ![Flow](https://raw.githubusercontent.com/CaiqueDourado/dicionario-portugues/main/docs/img/flow.png)
 
-- **Word list**: compiled from several word lists and from the author's corpora. `ocorrencias` counts occurrences in the Bible, a quotes collection and Google searches with volume (109,230 words appear at least once).
-- **Rule-based fields**: computed by the author's C# code; `palavra_sem_acento`, `ao_contrario` and `numero_letras` were recomputed (the old code turned *ss* into *B* in 28,046 words).
+- **Word list**: compiled from several word lists and from my corpora. `ocorrencias` counts occurrences in the Bible, a quotes collection and Google searches with volume (109,230 words appear at least once).
+- **Rule-based fields**: computed by my C# code; `palavra_sem_acento`, `ao_contrario` and `numero_letras` were recomputed (the old code turned *ss* into *B* in 28,046 words).
 - **AI texts**: one prompt per field per word. The build removed the davinci copies, trimmed spaces and line breaks, cut 5,883 prompt echoes and 45,686 broken phonetic transcriptions, and dropped 1,280 texts where the model talks about itself and 6,330 with characters lost mid-word. 37 words marked as ignored are left out.
 
 ## Limits
 
 - The AI texts were not reviewed; some still carry prompt echoes mid-text.
 - The list mixes Brazilian Portuguese with inflections, names, loanwords and a few typos.
-- `ocorrencias` reflects the author's corpora, not Portuguese in general.
+- `ocorrencias` reflects my corpora, not Portuguese in general.
 - Rhymes are by spelling, not sound; same-key pairs include unrelated words.
 
 ## Code, sample and related data
